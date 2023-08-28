@@ -13,7 +13,7 @@ public sealed record ShoppingList(ShoppingListId Id)
 }
 
 
-public sealed record ShoppingListCreated(ShoppingListId Id)
+public sealed record ShoppingListCreated(ShoppingListId Id, DateTimeOffset Time)
 {
     
 }
