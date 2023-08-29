@@ -1008,6 +1008,9 @@
           "xunit.extensibility.core": "[2.4.2]"
         }
       },
+      "shoppinglist.core": {
+        "type": "Project"
+      },
       "xunit.assert": {
         "type": "CentralTransitive",
         "requested": "[2.4.1, )",

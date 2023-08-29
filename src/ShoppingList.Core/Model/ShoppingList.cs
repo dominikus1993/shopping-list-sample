@@ -1,6 +1,8 @@
 namespace ShoppingList.Core.Model;
 
-public sealed class ShoppingListItem
+public sealed record ShoppingListItemId(Guid Value);
+
+public sealed record ShoppingListItem(ShoppingListItemId Id)
 {
     
 }
