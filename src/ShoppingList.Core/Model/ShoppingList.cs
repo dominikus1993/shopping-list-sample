@@ -1,3 +1,5 @@
+using ShoppingList.Core.Abstractions;
+
 namespace ShoppingList.Core.Model;
 
 public sealed record ShoppingListItemName(string Value);
@@ -11,18 +13,41 @@ public sealed record ShoppingListItem(ShoppingListItemId Id, ShoppingListItemNam
 
 public readonly record struct ShoppingListId(Guid Value);
 
-public abstract record ShoppingList
+public sealed class ShoppingList : AggregateRoot
 {
+    public ShoppingList(ShoppingListId Id, UserId UserId, ShoppingListName ShoppingListName)
+    {
+        
+    }
 
-    public sealed record Empty(ShoppingListId Id, UserId UserId, ShoppingListName ShoppingListName) : ShoppingList;
-    
-    public static ShoppingList CreateNew(ShoppingListCreated evt) => new Empty(evt.Id, evt.UserId, evt.ShoppingListName);
-    
-    
+    public static ShoppingList CreateNew(ShoppingListCreated evt)
+    {
+        return new ShoppingList(evt.Id, evt.UserId, evt.ShoppingListName);
+    }
+
+
+    public ShoppingListId Id { get; init; }
+    public UserId UserId { get; init; }
+    public ShoppingListName ShoppingListName { get; init; }
+
+    public void Deconstruct(out ShoppingListId Id, out UserId UserId, out ShoppingListName ShoppingListName)
+    {
+        Id = this.Id;
+        UserId = this.UserId;
+        ShoppingListName = this.ShoppingListName;
+    }
 }
 
 
-public sealed record ShoppingListCreated(ShoppingListId Id, UserId UserId, ShoppingListName ShoppingListName, DateTimeOffset Time)
+public sealed record ShoppingListCreated(ShoppingListId Id, UserId UserId, ShoppingListName ShoppingListName, DateTimeOffset Time) : IEvent
 {
-    
+    private Guid _id;
+
+    Guid IEvent.Id
+    {
+        get => _id;
+        init => _id = value;
+    }
+
+    public int Version { get; set; }
 }

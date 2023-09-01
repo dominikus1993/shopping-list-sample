@@ -8,6 +8,6 @@ public sealed class CreateNewShoppingListHandler : IRequestHandler<CreateNewShop
 {
     public ValueTask<Unit> Handle(CreateNewShoppingList request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var shoppingList = Model.ShoppingList.CreateNew();
     }
 }
