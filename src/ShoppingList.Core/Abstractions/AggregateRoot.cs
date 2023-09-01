@@ -3,7 +3,7 @@
 public abstract class AggregateRoot
 {
     private readonly List<IEvent> _changes = new();
-    public int Version { get; internal set; }
+    public int Version { get; private set; }
 
     public IEnumerable<IEvent> GetUncommittedChanges()
     {
@@ -21,10 +21,11 @@ public abstract class AggregateRoot
         ApplyChange(e, true);
     }
 
+    protected abstract void Apply(IEvent @event);
+
     private void ApplyChange(IEvent e, bool isNew)
     {
-        dynamic me = this;
-        me.Apply(e);
+        this.Apply(e);
         if (isNew)
         {
             _changes.Add(e);

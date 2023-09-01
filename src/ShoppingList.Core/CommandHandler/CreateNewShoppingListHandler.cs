@@ -1,13 +1,25 @@
 using Mediator;
 
 using ShoppingList.Core.Commands;
+using ShoppingList.Core.Repositories;
 
 namespace ShoppingList.Core.CommandHandler;
 
 public sealed class CreateNewShoppingListHandler : IRequestHandler<CreateNewShoppingList>
 {
-    public ValueTask<Unit> Handle(CreateNewShoppingList request, CancellationToken cancellationToken)
+    private readonly IShoppingListsRepository _shoppingListsRepository;
+
+    public CreateNewShoppingListHandler(IShoppingListsRepository shoppingListsRepository)
     {
-        var shoppingList = Model.ShoppingList.CreateNew();
+        _shoppingListsRepository = shoppingListsRepository;
+    }
+
+    public async ValueTask<Unit> Handle(CreateNewShoppingList request, CancellationToken cancellationToken)
+    {
+        var shoppingList = new Model.ShoppingList(request.Id, request.UserId, request.ShoppingListName);
+
+        await _shoppingListsRepository.Save(shoppingList);
+        
+        return Unit.Value;
     }
 }

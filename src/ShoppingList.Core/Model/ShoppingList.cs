@@ -17,7 +17,7 @@ public sealed class ShoppingList : AggregateRoot
 {
     public ShoppingList(ShoppingListId Id, UserId UserId, ShoppingListName ShoppingListName)
     {
-        
+        ApplyChange(new ShoppingListCreated(Id, UserId, ShoppingListName, DateTimeOffset.UtcNow));
     }
 
     public static ShoppingList CreateNew(ShoppingListCreated evt)
@@ -26,15 +26,27 @@ public sealed class ShoppingList : AggregateRoot
     }
 
 
-    public ShoppingListId Id { get; init; }
-    public UserId UserId { get; init; }
-    public ShoppingListName ShoppingListName { get; init; }
+    public ShoppingListId Id { get; private set; }
+    public UserId UserId { get; private set; }
+    public ShoppingListName ShoppingListName { get; private set; }
 
     public void Deconstruct(out ShoppingListId Id, out UserId UserId, out ShoppingListName ShoppingListName)
     {
         Id = this.Id;
         UserId = this.UserId;
         ShoppingListName = this.ShoppingListName;
+    }
+
+    protected override void Apply(IEvent @event)
+    {
+        switch (@event)
+        {
+            case ShoppingListCreated created:
+                Id = created.Id;
+                UserId = created.UserId;
+                ShoppingListName = created.ShoppingListName;
+                break;
+        }
     }
 }
 
