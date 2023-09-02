@@ -1,7 +1,7 @@
 ﻿namespace ShoppingList.Core.Abstractions;
 
-public interface IEvent
+public abstract record Event
 {
-    public Guid Id { get; set; }
-    public int Version { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public int Version { get; set; } = 1;
 }

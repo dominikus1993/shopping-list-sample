@@ -43,6 +43,11 @@ public sealed class ShoppingList : AggregateRoot
         ApplyChange(new ShoppingListCreated(Id, UserId, ShoppingListName));
     }
 
+    public ShoppingList()
+    {
+        
+    }
+
     public void AddItem(ShoppingListItem item)
     {
         if (_items.Contains(item))
@@ -60,7 +65,7 @@ public sealed class ShoppingList : AggregateRoot
     public IReadOnlyCollection<ShoppingListItem> Items => _items.AsReadOnly();
     
 
-    protected override void Apply(IEvent @event)
+    protected override void Apply(Event @event)
     {
         switch (@event)
         {
@@ -78,16 +83,6 @@ public sealed class ShoppingList : AggregateRoot
 }
 
 
-public sealed record ShoppingListCreated(ShoppingListId ShoppingListIdId, UserId UserId, ShoppingListName ShoppingListName) : IEvent
-
-{
-    public Guid Id { get; set; }
-    public int Version { get; set; }
-}
-
-public sealed record ShoppingListItemAdded(ShoppingListItem Item) : IEvent
-
-{
-    public Guid Id { get; set; }
-    public int Version { get; set; }
-}
+public sealed record ShoppingListCreated(ShoppingListId ShoppingListIdId, UserId UserId,
+    ShoppingListName ShoppingListName) : Event;
+public sealed record ShoppingListItemAdded(ShoppingListItem Item) : Event;

@@ -51,4 +51,20 @@ public class ShoppingListTests
         
         Assert.Equal(item.Id, ex.ShoppingListItemId);
     }
+    
+    
+    [Theory]
+    [AutoData]
+    public void TestReconstructShoppingListByEvents(ShoppingListId id, UserId userId, ShoppingListName name, ShoppingListItem item)
+    {
+        var sl = new Core.Model.ShoppingList(id, userId, name);
+        
+        sl.AddItem(item);
+
+        var events = sl.GetUncommittedChanges();
+        var subject = new Core.Model.ShoppingList();
+        subject.LoadsFromHistory(events);
+        
+        Assert.Equivalent(sl, subject);
+    }
 }
