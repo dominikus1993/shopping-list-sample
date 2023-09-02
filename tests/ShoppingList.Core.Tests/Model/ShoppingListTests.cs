@@ -1,5 +1,6 @@
 using AutoFixture.Xunit2;
 
+using ShoppingList.Core.Exceptions;
 using ShoppingList.Core.Model;
 
 using Shouldly;
@@ -34,5 +35,20 @@ public class ShoppingListTests
         Assert.NotEmpty(subject.Items);
         Assert.Single(subject.Items);
         subject.Items.ShouldContain(item);
+    }
+    
+    [Theory]
+    [AutoData]
+    public void TestAddItemWhenShoppingListContainsItem(ShoppingListId id, UserId userId, ShoppingListName name, ShoppingListItem item, ShoppingListItemName newName)
+    {
+        var subject = new Core.Model.ShoppingList(id, userId, name);
+        
+        subject.AddItem(item);
+
+        var newItem = item with { Name = newName };
+
+        var ex = Assert.Throws<ShoppingListItemExistsException>(() => subject.AddItem(newItem));
+        
+        Assert.Equal(item.Id, ex.ShoppingListItemId);
     }
 }
