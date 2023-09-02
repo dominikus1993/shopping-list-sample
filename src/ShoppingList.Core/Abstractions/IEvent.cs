@@ -2,6 +2,6 @@
 
 public interface IEvent
 {
-    public Guid Id { get; init; }
+    public Guid Id { get; set; }
     public int Version { get; set; }
 }

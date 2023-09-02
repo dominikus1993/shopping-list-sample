@@ -1,4 +1,5 @@
 using ShoppingList.Core.Abstractions;
+using ShoppingList.Core.Exceptions;
 
 namespace ShoppingList.Core.Model;
 
@@ -9,57 +10,84 @@ public sealed record UserId(Guid Value);
 
 public sealed record ShoppingListName(string Value);
 
-public sealed record ShoppingListItem(ShoppingListItemId Id, ShoppingListItemName Name);
+public sealed record ShoppingListItem(ShoppingListItemId Id, ShoppingListItemName Name)
+{
+    public bool Equals(ShoppingListItem? other)
+    {
+        if (ReferenceEquals(null, other))
+        {
+            return false;
+        }
+
+        if (ReferenceEquals(this, other))
+        {
+            return true;
+        }
+
+        return Id.Equals(other.Id);
+    }
+
+    public override int GetHashCode()
+    {
+        return Id.GetHashCode();
+    }
+}
 
 public readonly record struct ShoppingListId(Guid Value);
 
 public sealed class ShoppingList : AggregateRoot
 {
+    private List<ShoppingListItem> _items;
     public ShoppingList(ShoppingListId Id, UserId UserId, ShoppingListName ShoppingListName)
     {
-        ApplyChange(new ShoppingListCreated(Id, UserId, ShoppingListName, DateTimeOffset.UtcNow));
+        ApplyChange(new ShoppingListCreated(Id, UserId, ShoppingListName));
     }
 
-    public static ShoppingList CreateNew(ShoppingListCreated evt)
+    public void AddItem(ShoppingListItem item)
     {
-        return new ShoppingList(evt.Id, evt.UserId, evt.ShoppingListName);
+        if (_items.Contains(item))
+        {
+            throw new ShoppingListItemExistsException(item.Id);
+        }
+        
+        ApplyChange(new ShoppingListItemAdded(item));
     }
-
-
+    
     public ShoppingListId Id { get; private set; }
     public UserId UserId { get; private set; }
     public ShoppingListName ShoppingListName { get; private set; }
 
-    public void Deconstruct(out ShoppingListId Id, out UserId UserId, out ShoppingListName ShoppingListName)
-    {
-        Id = this.Id;
-        UserId = this.UserId;
-        ShoppingListName = this.ShoppingListName;
-    }
+    public IReadOnlyCollection<ShoppingListItem> Items => _items.AsReadOnly();
+    
 
     protected override void Apply(IEvent @event)
     {
         switch (@event)
         {
             case ShoppingListCreated created:
-                Id = created.Id;
+                Id = created.ShoppingListIdId;
                 UserId = created.UserId;
                 ShoppingListName = created.ShoppingListName;
+                _items = new List<ShoppingListItem>();
+                break;
+            case ShoppingListItemAdded added: 
+                _items.Add(added.Item);
                 break;
         }
     }
 }
 
 
-public sealed record ShoppingListCreated(ShoppingListId Id, UserId UserId, ShoppingListName ShoppingListName, DateTimeOffset Time) : IEvent
+public sealed record ShoppingListCreated(ShoppingListId ShoppingListIdId, UserId UserId, ShoppingListName ShoppingListName) : IEvent
+
 {
-    private Guid _id;
+    public Guid Id { get; set; }
+    public int Version { get; set; }
+}
 
-    Guid IEvent.Id
-    {
-        get => _id;
-        init => _id = value;
-    }
+public sealed record ShoppingListItemAdded(ShoppingListItem Item) : IEvent
 
+{
+    public Guid Id { get; set; }
     public int Version { get; set; }
 }
