@@ -58,6 +58,17 @@ public sealed class ShoppingList : AggregateRoot
         ApplyChange(new ShoppingListItemAdded(item));
     }
     
+    public void RemoveItem(ShoppingListItemId itemId)
+    {
+        var element = _items.Find(it => it.Id == itemId);
+        if (element is null)
+        {
+            throw new ShoppingListItemNotExistsException(itemId);
+        }
+        
+        ApplyChange(new ShoppingListItemRemoved(element));
+    }
+    
     public ShoppingListId Id { get; private set; }
     public UserId UserId { get; private set; }
     public ShoppingListName ShoppingListName { get; private set; }
@@ -78,6 +89,9 @@ public sealed class ShoppingList : AggregateRoot
             case ShoppingListItemAdded added: 
                 _items.Add(added.Item);
                 break;
+            case ShoppingListItemRemoved removed:
+                _items.Remove(removed.Item);
+                break;
         }
     }
 }
@@ -86,3 +100,5 @@ public sealed class ShoppingList : AggregateRoot
 public sealed record ShoppingListCreated(ShoppingListId ShoppingListIdId, UserId UserId,
     ShoppingListName ShoppingListName) : Event;
 public sealed record ShoppingListItemAdded(ShoppingListItem Item) : Event;
+
+public sealed record ShoppingListItemRemoved(ShoppingListItem Item) : Event;

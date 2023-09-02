@@ -52,6 +52,53 @@ public class ShoppingListTests
         Assert.Equal(item.Id, ex.ShoppingListItemId);
     }
     
+    [Theory]
+    [AutoData]
+    public void TestRemoveItemWhenShoppingListContainsItem(ShoppingListId id, UserId userId, ShoppingListName name, ShoppingListItem item)
+    {
+        var subject = new Core.Model.ShoppingList(id, userId, name);
+        
+        subject.AddItem(item);
+        subject.RemoveItem(item.Id);
+
+        Assert.Equal(id, subject.Id);
+        Assert.Equal(userId, subject.UserId);
+        Assert.Equal(name, subject.ShoppingListName);
+        Assert.Empty(subject.Items);
+    }
+    
+    [Theory]
+    [AutoData]
+    public void TestRemoveItemWhenShoppingListContainsItemAndHAsMoreThanOneItem(ShoppingListId id, UserId userId, ShoppingListName name, ShoppingListItem item,  ShoppingListItem item2)
+    {
+        var subject = new Core.Model.ShoppingList(id, userId, name);
+        
+        subject.AddItem(item);
+        subject.AddItem(item2);
+        subject.RemoveItem(item.Id);
+
+        Assert.Equal(id, subject.Id);
+        Assert.Equal(userId, subject.UserId);
+        Assert.Equal(name, subject.ShoppingListName);
+        Assert.NotEmpty(subject.Items);
+        subject.Items.ShouldContain(item2);
+        subject.Items.ShouldNotContain(item);
+    }
+    
+    [Theory]
+    [AutoData]
+    public void TestRemoveItemWhenShoppingListNotContainsItem(ShoppingListId id, UserId userId, ShoppingListName name, ShoppingListItem item, ShoppingListItemId itemId2)
+    {
+        var subject = new Core.Model.ShoppingList(id, userId, name);
+        
+        subject.AddItem(item);
+        
+
+        var ex = Assert.Throws<ShoppingListItemNotExistsException>(() => subject.RemoveItem(itemId2));
+        
+        Assert.Equal(itemId2, ex.ShoppingListItemId);
+    }
+    
     
     [Theory]
     [AutoData]
