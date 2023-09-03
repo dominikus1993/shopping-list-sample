@@ -10,4 +10,8 @@
     <PackageReference Include="Marten" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ShoppingList.Core\ShoppingList.Core.csproj" />
+  </ItemGroup>
+
 </Project>
