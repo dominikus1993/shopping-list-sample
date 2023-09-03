@@ -4,13 +4,13 @@ namespace ShoppingList.Infrastructure.Extensions;
 
 public static class DocumentSessionExtensions
 {
-    public static Task Add<T>(this IDocumentSession documentSession, Guid id, object @event, CancellationToken ct)
+    public static Task Add<T>(this IDocumentSession documentSession, Guid id, IEnumerable<object> events, CancellationToken ct)
         where T : class
     {
-        documentSession.Events.StartStream<T>(id, @event);
+        documentSession.Events.StartStream<T>(id, events);
         return documentSession.SaveChangesAsync(token: ct);
     }
-
+    
     public static Task GetAndUpdate<T>(
         this IDocumentSession documentSession,
         Guid id,

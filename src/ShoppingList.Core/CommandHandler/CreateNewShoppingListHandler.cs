@@ -18,7 +18,7 @@ public sealed class CreateNewShoppingListHandler : IRequestHandler<CreateNewShop
     {
         var shoppingList = new Model.ShoppingList(request.Id, request.UserId, request.ShoppingListName);
 
-        await _shoppingListsRepository.Save(shoppingList);
+        await _shoppingListsRepository.Save(shoppingList, cancellationToken);
         
         return Unit.Value;
     }

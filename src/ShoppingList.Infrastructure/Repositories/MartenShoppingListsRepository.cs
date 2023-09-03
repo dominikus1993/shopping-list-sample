@@ -1,12 +1,8 @@
 using Marten;
-using Marten;
-using Marten.Events.Daemon.Resiliency;
-using Marten.Events.Projections;
-using Marten.Pagination;
-using Marten.Schema.Identity;
-using Marten.Services.Json;
+
 using ShoppingList.Core.Model;
 using ShoppingList.Core.Repositories;
+using ShoppingList.Infrastructure.Extensions;
 
 namespace ShoppingList.Infrastructure.Repositories;
 
@@ -21,11 +17,12 @@ public sealed class MartenShoppingListsRepository : IShoppingListsRepository
 
     public Task<Core.Model.ShoppingList> Load(ShoppingListId id, CancellationToken cancellationToken = default)
     {
-        _documentSession.Get
+        throw new NotImplementedException();
     }
 
-    public Task Save(Core.Model.ShoppingList shoppingList)
+    public async Task Save(Core.Model.ShoppingList shoppingList, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var id = shoppingList.Id.Value;
+        await _documentSession.Add<Core.Model.ShoppingList>(id, shoppingList.GetUncommittedChanges(), cancellationToken);
     }
 }

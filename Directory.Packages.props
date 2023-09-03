@@ -14,17 +14,18 @@
     <PackageVersion Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
     <PackageVersion Include="System.Memory" Version="4.5.5" />
     <PackageVersion Include="Testcontainers" Version="2.2.0" />
+    <PackageVersion Include="Testcontainers.PostgreSql" Version="3.4.0" />
     <PackageVersion Include="WireMock.Net" Version="1.5.10" />
     <PackageVersion Include="xunit.assert" Version="2.4.1" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
     <PackageVersion Include="Shouldly" Version="4.2.1" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
-    <PackageVersion Include="xunit" Version="2.4.2" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5">
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+    <PackageVersion Include="xunit" Version="2.5.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageVersion>
-    <PackageVersion Include="coverlet.collector" Version="3.2.0">
+    <PackageVersion Include="coverlet.collector" Version="6.0.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageVersion>
