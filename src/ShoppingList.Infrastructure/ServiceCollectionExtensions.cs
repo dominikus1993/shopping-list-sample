@@ -32,7 +32,7 @@ public static class ServiceCollectionExtensions
                     serializerType: SerializerType.SystemTextJson
                 );
 
-                options.Projections.LiveStreamAggregation<Core.Model.ShoppingList>();
+                options.Projections.LiveStreamAggregation<Core.Model.CustomerShoppingList>();
                 return options;
             })
             .OptimizeArtifactWorkflow(TypeLoadMode.Static)

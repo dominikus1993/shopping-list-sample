@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoFixture.Xunit2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk"  />
     <PackageReference Include="Testcontainers.PostgreSql" />
     <PackageReference Include="xunit"  />
@@ -21,7 +22,12 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\ShoppingList.Core\ShoppingList.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\ShoppingList.Infrastructure\ShoppingList.Infrastructure.csproj" />
   </ItemGroup>
+
 
 </Project>

@@ -16,7 +16,7 @@ public sealed class CreateNewShoppingListHandler : IRequestHandler<CreateNewShop
 
     public async ValueTask<Unit> Handle(CreateNewShoppingList request, CancellationToken cancellationToken)
     {
-        var shoppingList = new Model.ShoppingList(request.Id, request.UserId, request.ShoppingListName);
+        var shoppingList = new Model.CustomerShoppingList(request.Id, request.UserId, request.ShoppingListName);
 
         await _shoppingListsRepository.Save(shoppingList, cancellationToken);
         

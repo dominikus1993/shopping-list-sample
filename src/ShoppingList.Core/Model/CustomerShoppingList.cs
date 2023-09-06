@@ -35,15 +35,15 @@ public sealed record ShoppingListItem(ShoppingListItemId Id, ShoppingListItemNam
 
 public readonly record struct ShoppingListId(Guid Value);
 
-public sealed class ShoppingList : AggregateRoot
+public sealed class CustomerShoppingList : AggregateRoot
 {
     private List<ShoppingListItem> _items;
-    public ShoppingList(ShoppingListId Id, UserId UserId, ShoppingListName ShoppingListName)
+    public CustomerShoppingList(ShoppingListId Id, UserId UserId, ShoppingListName ShoppingListName)
     {
         ApplyChange(new ShoppingListCreated(Id, UserId, ShoppingListName));
     }
 
-    public ShoppingList()
+    public CustomerShoppingList()
     {
         
     }

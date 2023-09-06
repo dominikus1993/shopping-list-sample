@@ -15,14 +15,14 @@ public sealed class MartenShoppingListsRepository : IShoppingListsRepository
         _documentSession = documentSession;
     }
 
-    public Task<Core.Model.ShoppingList> Load(ShoppingListId id, CancellationToken cancellationToken = default)
+    public Task<CustomerShoppingList?> Load(ShoppingListId id, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public async Task Save(Core.Model.ShoppingList shoppingList, CancellationToken cancellationToken = default)
+    public async Task Save(CustomerShoppingList customerShoppingList, CancellationToken cancellationToken = default)
     {
-        var id = shoppingList.Id.Value;
-        await _documentSession.Add<Core.Model.ShoppingList>(id, shoppingList.GetUncommittedChanges(), cancellationToken);
+        var id = customerShoppingList.Id.Value;
+        await _documentSession.Add<CustomerShoppingList>(id, customerShoppingList.GetUncommittedChanges(), cancellationToken);
     }
 }

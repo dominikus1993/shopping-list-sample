@@ -13,7 +13,7 @@ public class ShoppingListTests
     [AutoData]
     public void TestCreateNewShoppingList(ShoppingListId id, UserId userId, ShoppingListName name)
     {
-        var subject = new Core.Model.ShoppingList(id, userId, name);
+        var subject = new Core.Model.CustomerShoppingList(id, userId, name);
         
         Assert.Equal(id, subject.Id);
         Assert.Equal(userId, subject.UserId);
@@ -25,7 +25,7 @@ public class ShoppingListTests
     [AutoData]
     public void TestAddItemWhenShoppingListIsEmpty(ShoppingListId id, UserId userId, ShoppingListName name, ShoppingListItem item)
     {
-        var subject = new Core.Model.ShoppingList(id, userId, name);
+        var subject = new Core.Model.CustomerShoppingList(id, userId, name);
         
         subject.AddItem(item);
         
@@ -41,7 +41,7 @@ public class ShoppingListTests
     [AutoData]
     public void TestAddItemWhenShoppingListContainsItem(ShoppingListId id, UserId userId, ShoppingListName name, ShoppingListItem item, ShoppingListItemName newName)
     {
-        var subject = new Core.Model.ShoppingList(id, userId, name);
+        var subject = new Core.Model.CustomerShoppingList(id, userId, name);
         
         subject.AddItem(item);
 
@@ -56,7 +56,7 @@ public class ShoppingListTests
     [AutoData]
     public void TestRemoveItemWhenShoppingListContainsItem(ShoppingListId id, UserId userId, ShoppingListName name, ShoppingListItem item)
     {
-        var subject = new Core.Model.ShoppingList(id, userId, name);
+        var subject = new Core.Model.CustomerShoppingList(id, userId, name);
         
         subject.AddItem(item);
         subject.RemoveItem(item.Id);
@@ -71,7 +71,7 @@ public class ShoppingListTests
     [AutoData]
     public void TestRemoveItemWhenShoppingListContainsItemAndHAsMoreThanOneItem(ShoppingListId id, UserId userId, ShoppingListName name, ShoppingListItem item,  ShoppingListItem item2)
     {
-        var subject = new Core.Model.ShoppingList(id, userId, name);
+        var subject = new Core.Model.CustomerShoppingList(id, userId, name);
         
         subject.AddItem(item);
         subject.AddItem(item2);
@@ -89,7 +89,7 @@ public class ShoppingListTests
     [AutoData]
     public void TestRemoveItemWhenShoppingListNotContainsItem(ShoppingListId id, UserId userId, ShoppingListName name, ShoppingListItem item, ShoppingListItemId itemId2)
     {
-        var subject = new Core.Model.ShoppingList(id, userId, name);
+        var subject = new Core.Model.CustomerShoppingList(id, userId, name);
         
         subject.AddItem(item);
         
@@ -104,12 +104,12 @@ public class ShoppingListTests
     [AutoData]
     public void TestReconstructShoppingListByEvents(ShoppingListId id, UserId userId, ShoppingListName name, ShoppingListItem item)
     {
-        var sl = new Core.Model.ShoppingList(id, userId, name);
+        var sl = new Core.Model.CustomerShoppingList(id, userId, name);
         
         sl.AddItem(item);
 
         var events = sl.GetUncommittedChanges();
-        var subject = new Core.Model.ShoppingList();
+        var subject = new Core.Model.CustomerShoppingList();
         subject.LoadsFromHistory(events);
         
         Assert.Equivalent(sl, subject);
