@@ -33,12 +33,11 @@ public sealed record ShoppingListItem(ShoppingListItemId Id, ShoppingListItemNam
     }
 }
 
-public readonly record struct ShoppingListId(Guid Value);
 
 public sealed class CustomerShoppingList : AggregateRoot
 {
     private List<ShoppingListItem> _items;
-    public CustomerShoppingList(ShoppingListId Id, UserId UserId, ShoppingListName ShoppingListName)
+    public CustomerShoppingList(Guid Id, UserId UserId, ShoppingListName ShoppingListName)
     {
         ApplyChange(new ShoppingListCreated(Id, UserId, ShoppingListName));
     }
@@ -69,7 +68,7 @@ public sealed class CustomerShoppingList : AggregateRoot
         ApplyChange(new ShoppingListItemRemoved(element));
     }
     
-    public ShoppingListId Id { get; private set; }
+    public Guid Id { get; private set; }
     public UserId UserId { get; private set; }
     public ShoppingListName ShoppingListName { get; private set; }
 
@@ -97,7 +96,7 @@ public sealed class CustomerShoppingList : AggregateRoot
 }
 
 
-public sealed record ShoppingListCreated(ShoppingListId ShoppingListIdId, UserId UserId,
+public sealed record ShoppingListCreated(Guid ShoppingListIdId, UserId UserId,
     ShoppingListName ShoppingListName) : Event;
 public sealed record ShoppingListItemAdded(ShoppingListItem Item) : Event;
 

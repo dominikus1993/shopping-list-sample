@@ -4,4 +4,4 @@ using ShoppingList.Core.Model;
 
 namespace ShoppingList.Core.Commands;
 
-public sealed record CreateNewShoppingList(ShoppingListId Id, UserId UserId, ShoppingListName ShoppingListName) : IRequest;
+public sealed record CreateNewShoppingList(Guid Id, UserId UserId, ShoppingListName ShoppingListName) : IRequest;

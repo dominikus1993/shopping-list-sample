@@ -20,4 +20,14 @@ public static class DocumentSessionExtensions
     ) where T : class =>
         documentSession.Events.WriteToAggregate<T>(id, version, stream =>
             stream.AppendOne(handle(stream.Aggregate)), ct);
+
+    public static Task<T?> Get<T>(
+        this IDocumentSession documentSession,
+        Guid id,
+        int version,
+        CancellationToken ct
+    ) where T : class =>
+        documentSession.Events.AggregateStreamAsync<T>(id, version, token: ct);
+
+
 }

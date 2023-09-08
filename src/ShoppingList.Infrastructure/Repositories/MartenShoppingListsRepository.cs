@@ -15,14 +15,14 @@ public sealed class MartenShoppingListsRepository : IShoppingListsRepository
         _documentSession = documentSession;
     }
 
-    public Task<CustomerShoppingList?> Load(ShoppingListId id, CancellationToken cancellationToken = default)
+    public async Task<CustomerShoppingList?> Load(Guid id, int version, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return await _documentSession.Get<CustomerShoppingList>(id, version, cancellationToken);
     }
 
     public async Task Save(CustomerShoppingList customerShoppingList, CancellationToken cancellationToken = default)
     {
-        var id = customerShoppingList.Id.Value;
+        var id = customerShoppingList.Id;
         await _documentSession.Add<CustomerShoppingList>(id, customerShoppingList.GetUncommittedChanges(), cancellationToken);
     }
 }

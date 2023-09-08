@@ -11,7 +11,7 @@ public class ShoppingListTests
 {
     [Theory]
     [AutoData]
-    public void TestCreateNewShoppingList(ShoppingListId id, UserId userId, ShoppingListName name)
+    public void TestCreateNewShoppingList(Guid id, UserId userId, ShoppingListName name)
     {
         var subject = new Core.Model.CustomerShoppingList(id, userId, name);
         
@@ -23,7 +23,7 @@ public class ShoppingListTests
     
     [Theory]
     [AutoData]
-    public void TestAddItemWhenShoppingListIsEmpty(ShoppingListId id, UserId userId, ShoppingListName name, ShoppingListItem item)
+    public void TestAddItemWhenShoppingListIsEmpty(Guid id, UserId userId, ShoppingListName name, ShoppingListItem item)
     {
         var subject = new Core.Model.CustomerShoppingList(id, userId, name);
         
@@ -39,7 +39,7 @@ public class ShoppingListTests
     
     [Theory]
     [AutoData]
-    public void TestAddItemWhenShoppingListContainsItem(ShoppingListId id, UserId userId, ShoppingListName name, ShoppingListItem item, ShoppingListItemName newName)
+    public void TestAddItemWhenShoppingListContainsItem(Guid id, UserId userId, ShoppingListName name, ShoppingListItem item, ShoppingListItemName newName)
     {
         var subject = new Core.Model.CustomerShoppingList(id, userId, name);
         
@@ -54,7 +54,7 @@ public class ShoppingListTests
     
     [Theory]
     [AutoData]
-    public void TestRemoveItemWhenShoppingListContainsItem(ShoppingListId id, UserId userId, ShoppingListName name, ShoppingListItem item)
+    public void TestRemoveItemWhenShoppingListContainsItem(Guid id, UserId userId, ShoppingListName name, ShoppingListItem item)
     {
         var subject = new Core.Model.CustomerShoppingList(id, userId, name);
         
@@ -69,7 +69,7 @@ public class ShoppingListTests
     
     [Theory]
     [AutoData]
-    public void TestRemoveItemWhenShoppingListContainsItemAndHAsMoreThanOneItem(ShoppingListId id, UserId userId, ShoppingListName name, ShoppingListItem item,  ShoppingListItem item2)
+    public void TestRemoveItemWhenShoppingListContainsItemAndHAsMoreThanOneItem(Guid id, UserId userId, ShoppingListName name, ShoppingListItem item,  ShoppingListItem item2)
     {
         var subject = new Core.Model.CustomerShoppingList(id, userId, name);
         
@@ -87,7 +87,7 @@ public class ShoppingListTests
     
     [Theory]
     [AutoData]
-    public void TestRemoveItemWhenShoppingListNotContainsItem(ShoppingListId id, UserId userId, ShoppingListName name, ShoppingListItem item, ShoppingListItemId itemId2)
+    public void TestRemoveItemWhenShoppingListNotContainsItem(Guid id, UserId userId, ShoppingListName name, ShoppingListItem item, ShoppingListItemId itemId2)
     {
         var subject = new Core.Model.CustomerShoppingList(id, userId, name);
         
@@ -102,7 +102,7 @@ public class ShoppingListTests
     
     [Theory]
     [AutoData]
-    public void TestReconstructShoppingListByEvents(ShoppingListId id, UserId userId, ShoppingListName name, ShoppingListItem item)
+    public void TestReconstructShoppingListByEvents(Guid id, UserId userId, ShoppingListName name, ShoppingListItem item)
     {
         var sl = new Core.Model.CustomerShoppingList(id, userId, name);
         
