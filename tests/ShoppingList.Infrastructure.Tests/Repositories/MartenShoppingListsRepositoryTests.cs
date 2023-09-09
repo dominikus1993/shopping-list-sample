@@ -67,4 +67,23 @@ public class MartenShoppingListsRepositoryTests : IClassFixture<MartenFixture>
         // Assert.NotEmpty(subject.Items);
         // Assert.Equal(2, subject.Items.Count);
     }
+    
+    [Theory]
+    [AutoData]
+    public async Task SaveAndUpdateShoppingList(Guid shoppingListId, UserId userId, ShoppingListName shoppingListName, ShoppingListItem item, ShoppingListItem item2)
+    {
+        var sl = new CustomerShoppingList(shoppingListId, userId, shoppingListName);
+        sl.AddItem(item);
+        await _shoppingListsRepository.Save(sl);
+        sl.MarkChangesAsCommitted();
+
+        sl.AddItem(item2);
+        await _shoppingListsRepository.Update(sl);
+
+        var subject = await _shoppingListsRepository.Load(sl.Id, 3);
+        
+        Assert.NotNull(subject);
+        Assert.NotEmpty(subject.Items);
+        Assert.Equal(2, subject.Items.Count);
+    }
 }
