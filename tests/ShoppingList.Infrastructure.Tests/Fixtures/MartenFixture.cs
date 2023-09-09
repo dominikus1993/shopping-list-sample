@@ -3,6 +3,7 @@ using Marten.Events.Projections;
 using Marten.Services.Json;
 
 using ShoppingList.Core.Repositories;
+using ShoppingList.Infrastructure.Repositories;
 
 using Testcontainers.PostgreSql;
 
@@ -35,13 +36,13 @@ public sealed class MartenFixture : IAsyncLifetime
             options.Projections.LiveStreamAggregation<Core.Model.CustomerShoppingList>();
         });
         Session = Store.LightweightSession();
+        ShoppingListsRepository = new MartenShoppingListsRepository(Session);
     }
-
+    
     public async Task DisposeAsync()
     {
         await Session.DisposeAsync();
         Store.Dispose();
-        
         await PostgreSqlContainer.DisposeAsync();
     }
 }

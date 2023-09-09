@@ -17,7 +17,7 @@ public class MartenShoppingListsRepositoryTests : IClassFixture<MartenFixture>
     public MartenShoppingListsRepositoryTests(MartenFixture martenFixture)
     {
         _martenFixture = martenFixture;
-        _shoppingListsRepository = new MartenShoppingListsRepository(_martenFixture.Session);
+        _shoppingListsRepository = _martenFixture.ShoppingListsRepository;
     }
 
     [Theory]
@@ -60,12 +60,6 @@ public class MartenShoppingListsRepositoryTests : IClassFixture<MartenFixture>
 
         sl.AddItem(item2);
         await Assert.ThrowsAsync<ExistingStreamIdCollisionException>(async () => await _shoppingListsRepository.Save(sl));
-        
-        // var subject = await _shoppingListsRepository.Load(sl.Id, 3);
-        //
-        // Assert.NotNull(subject);
-        // Assert.NotEmpty(subject.Items);
-        // Assert.Equal(2, subject.Items.Count);
     }
     
     [Theory]
