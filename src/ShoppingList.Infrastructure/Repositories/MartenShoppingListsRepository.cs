@@ -20,6 +20,12 @@ public sealed class MartenShoppingListsRepository : IShoppingListsRepository
         return await _documentSession.Get<CustomerShoppingList>(id, version, cancellationToken);
     }
 
+    public async Task Update(CustomerShoppingList customerShoppingList, CancellationToken cancellationToken = default)
+    {
+        var id = customerShoppingList.Id;
+        await _documentSession.Update(id, customerShoppingList.GetUncommittedChanges(), cancellationToken);
+    }
+
     public async Task Save(CustomerShoppingList customerShoppingList, CancellationToken cancellationToken = default)
     {
         var id = customerShoppingList.Id;

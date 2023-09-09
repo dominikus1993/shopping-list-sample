@@ -11,6 +11,12 @@ public static class DocumentSessionExtensions
         return documentSession.SaveChangesAsync(token: ct);
     }
     
+    public static Task Update(this IDocumentSession documentSession, Guid id, IEnumerable<object> events, CancellationToken ct)
+    {
+        documentSession.Events.Append(id, events);
+        return documentSession.SaveChangesAsync(token: ct);
+    }
+    
     public static Task GetAndUpdate<T>(
         this IDocumentSession documentSession,
         Guid id,
@@ -27,7 +33,7 @@ public static class DocumentSessionExtensions
         int version,
         CancellationToken ct
     ) where T : class =>
-        documentSession.Events.AggregateStreamAsync<T>(id, version, token: ct);
+        documentSession.Events.AggregateStreamAsync<T>(id, token: ct);
 
 
 }
