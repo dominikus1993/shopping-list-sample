@@ -9,7 +9,7 @@ using ShoppingList.Infrastructure.Tests.Fixtures;
 
 namespace ShoppingList.Infrastructure.Tests.Repositories;
 
-public class MartenShoppingListsRepositoryTests : IClassFixture<MartenFixture>
+public sealed class MartenShoppingListsRepositoryTests : IClassFixture<MartenFixture>
 {
     private readonly MartenFixture _martenFixture;
     private readonly IShoppingListsRepository _shoppingListsRepository;

@@ -8,27 +8,30 @@ namespace ShoppingList.Infrastructure.Repositories;
 
 public sealed class MartenShoppingListsRepository : IShoppingListsRepository
 {
-    private readonly IDocumentSession _documentSession;
+    private readonly IDocumentStore _store;
 
-    public MartenShoppingListsRepository(IDocumentSession documentSession)
+    public MartenShoppingListsRepository(IDocumentStore store)
     {
-        _documentSession = documentSession;
+        _store = store;
     }
 
     public async Task<CustomerShoppingList?> Load(Guid id, int version, CancellationToken cancellationToken = default)
     {
-        return await _documentSession.Get<CustomerShoppingList>(id, version, cancellationToken);
+        await using var session = _store.LightweightSession();
+        return await session.Get<CustomerShoppingList>(id, version, cancellationToken);
     }
 
     public async Task Update(CustomerShoppingList customerShoppingList, CancellationToken cancellationToken = default)
     {
+        await using var session = _store.LightweightSession();
         var id = customerShoppingList.Id;
-        await _documentSession.Update(id, customerShoppingList.GetUncommittedChanges(), cancellationToken);
+        await session.Update(id, customerShoppingList.GetUncommittedChanges(), cancellationToken);
     }
 
     public async Task Save(CustomerShoppingList customerShoppingList, CancellationToken cancellationToken = default)
     {
+        await using var session = _store.LightweightSession();
         var id = customerShoppingList.Id;
-        await _documentSession.Add<CustomerShoppingList>(id, customerShoppingList.GetUncommittedChanges(), cancellationToken);
+        await session.Add<CustomerShoppingList>(id, customerShoppingList.GetUncommittedChanges(), cancellationToken);
     }
 }
