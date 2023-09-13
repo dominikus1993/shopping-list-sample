@@ -28,10 +28,12 @@ public sealed class MartenShoppingListsRepository : IShoppingListsRepository
         await session.Update(id, customerShoppingList.GetUncommittedChanges(), cancellationToken);
     }
 
-    public async Task Save(CustomerShoppingList customerShoppingList, CancellationToken cancellationToken = default)
+    public async Task<SaveResult> Save(CustomerShoppingList customerShoppingList, CancellationToken cancellationToken = default)
     {
         await using var session = _store.LightweightSession();
         var id = customerShoppingList.Id;
         await session.Add<CustomerShoppingList>(id, customerShoppingList.GetUncommittedChanges(), cancellationToken);
+
+        return id;
     }
 }

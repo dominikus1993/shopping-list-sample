@@ -26,7 +26,8 @@ public sealed class MartenShoppingListsRepositoryTests : IClassFixture<MartenFix
     {
         var sl = new CustomerShoppingList(shoppingListId, userId, shoppingListName);
 
-        await _shoppingListsRepository.Save(sl);
+        var result = await _shoppingListsRepository.Save(sl);
+        Assert.True(result.IsSuccess);
 
         Assert.Equal(1, sl.Version);
         var subject = await _shoppingListsRepository.Load(sl.Id, sl.Version);
@@ -40,7 +41,8 @@ public sealed class MartenShoppingListsRepositoryTests : IClassFixture<MartenFix
     {
         var sl = new CustomerShoppingList(shoppingListId, userId, shoppingListName);
         sl.AddItem(item);
-        await _shoppingListsRepository.Save(sl);
+        var result = await _shoppingListsRepository.Save(sl);
+        Assert.True(result.IsSuccess);
         
         Assert.Equal(2, sl.Version);
         var subject = await _shoppingListsRepository.Load(sl.Id, sl.Version);
@@ -55,7 +57,8 @@ public sealed class MartenShoppingListsRepositoryTests : IClassFixture<MartenFix
     {
         var sl = new CustomerShoppingList(shoppingListId, userId, shoppingListName);
         sl.AddItem(item);
-        await _shoppingListsRepository.Save(sl);
+        var result = await _shoppingListsRepository.Save(sl);
+        Assert.True(result.IsSuccess);
         sl.MarkChangesAsCommitted();
 
         sl.AddItem(item2);
@@ -68,7 +71,8 @@ public sealed class MartenShoppingListsRepositoryTests : IClassFixture<MartenFix
     {
         var sl = new CustomerShoppingList(shoppingListId, userId, shoppingListName);
         sl.AddItem(item);
-        await _shoppingListsRepository.Save(sl);
+        var result = await _shoppingListsRepository.Save(sl);
+        Assert.True(result.IsSuccess);
         sl.MarkChangesAsCommitted();
 
         sl.AddItem(item2);
