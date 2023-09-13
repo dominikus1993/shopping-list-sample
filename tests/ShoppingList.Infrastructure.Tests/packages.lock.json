@@ -30,11 +30,11 @@
       },
       "Testcontainers.PostgreSql": {
         "type": "Direct",
-        "requested": "[3.4.0, )",
-        "resolved": "3.4.0",
-        "contentHash": "IeO8lHobP3a6UK1GwcemsXCMcl5/fsMHvAClppS09tdg8lDtefonHHDgbG7r/o4+yGKCaZ2hcuWZ6SwsygR47w==",
+        "requested": "[3.5.0, )",
+        "resolved": "3.5.0",
+        "contentHash": "Z/cpR9hOURxgl8ksarqSInkmmISseXkRRpthTgc2o2XX8ckrIQtOYNqpuJ6Hx7mELzRc6xw0/Xgz7998MMalAw==",
         "dependencies": {
-          "Testcontainers": "3.4.0"
+          "Testcontainers": "3.5.0"
         }
       },
       "xunit": {
@@ -62,6 +62,11 @@
           "Fare": "[2.1.1, 3.0.0)",
           "System.ComponentModel.Annotations": "4.3.0"
         }
+      },
+      "BouncyCastle.Cryptography": {
+        "type": "Transitive",
+        "resolved": "2.2.1",
+        "contentHash": "A6Zr52zVqJKt18ZBsTnX0qhG0kwIQftVAjLmszmkiR/trSp8H+xj1gUOzk7XHwaKgyREMSV1v9XaKrBUeIOdvQ=="
       },
       "Docker.DotNet": {
         "type": "Transitive",
@@ -101,8 +106,8 @@
       },
       "JasperFx.CodeGeneration": {
         "type": "Transitive",
-        "resolved": "3.0.0",
-        "contentHash": "oz9py3YnAq6/BQhh/AXXN300nQjS3vvcKKM64N9Stbfdi1fieDTT9yAadm2/HP4AtP8kjri6AoQ7Z9MFuQ7aTQ==",
+        "resolved": "3.0.2",
+        "contentHash": "do6A3vS6PK7lvEcT0XfN22/mzEdW/mrEajUsrqkVaBaGYGZrmuTmJf7z2GIeag9NTrIiYn0YR1gYqU6vsNSk6w==",
         "dependencies": {
           "FastExpressionCompiler": "3.3.4",
           "JasperFx.Core": "1.3.0"
@@ -110,15 +115,15 @@
       },
       "JasperFx.Core": {
         "type": "Transitive",
-        "resolved": "1.4.0",
-        "contentHash": "eggelShwKQIIjW87+gzZffbT0cKpa09mLOE03Oolbwj+E62pcygn/j0BTsdwUQxr885P+qKTaqDaVmtKldGE0w=="
+        "resolved": "1.4.2",
+        "contentHash": "OGjkTJGxA5pKcnrenzXTeCEAyMejiGhARWtu57R1mWytzzlEZpgDUDRRnHOqDO16ZAzslivpJ5IqpE/aQVwoKw=="
       },
       "JasperFx.RuntimeCompiler": {
         "type": "Transitive",
-        "resolved": "3.0.0",
-        "contentHash": "4N1Dods8ihX46rCc7jJXjN4cBLRiXG6rbuv8Y8CDsPhKuqI4f4zvtkbp4R6erlCYlVyZjoNtoT8IQQHkZYZMAA==",
+        "resolved": "3.0.2",
+        "contentHash": "axzdQ/dAZ6cXsYbwD60NcoQuE+WtediXNypYymCSG5q3a1ROrnvxkb2fS+M0yranmRhsYfKeDLBqX0ghcbR/0g==",
         "dependencies": {
-          "JasperFx.CodeGeneration": "3.0.0",
+          "JasperFx.CodeGeneration": "3.0.2",
           "Microsoft.CodeAnalysis": "4.5.0",
           "Microsoft.CodeAnalysis.CSharp": "4.5.0",
           "Microsoft.CodeAnalysis.Scripting": "4.5.0",
@@ -399,11 +404,6 @@
         "type": "Transitive",
         "resolved": "6.5.0",
         "contentHash": "QWINE2x3MbTODsWT1Gh71GaGb5icBz4chS8VYvTgsBnsi8esgN6wtHhydd7fvToWECYGq7T4cgBBDiKD/363fg=="
-      },
-      "Portable.BouncyCastle": {
-        "type": "Transitive",
-        "resolved": "1.9.0",
-        "contentHash": "eZZBCABzVOek+id9Xy04HhmgykF0wZg9wpByzrWN7q8qEI0Qen9b7tfd7w8VA3dOeesumMG7C5ZPy0jk7PSRHw=="
       },
       "Remotion.Linq": {
         "type": "Transitive",
@@ -1404,19 +1404,19 @@
       },
       "Weasel.Core": {
         "type": "Transitive",
-        "resolved": "6.0.3",
-        "contentHash": "nBcTxMfq93fjq1COgyDFnmvKZ9QJEfailX9avbjbHwdyQoMMZr/z1P8SfbT5QpYjapZejYkwYYwLpW8/Ynqp4A==",
+        "resolved": "6.1.1",
+        "contentHash": "f/EN5/x/W2x7/90AeOsTr6UPnyNNlb/c3GkabLJSaby9dkFZY4GGP4GAEE0lJm1r+yHd5FoNYAQbwccVmjUgzA==",
         "dependencies": {
-          "JasperFx.Core": "1.4.0"
+          "JasperFx.Core": "1.4.2"
         }
       },
       "Weasel.Postgresql": {
         "type": "Transitive",
-        "resolved": "6.0.3",
-        "contentHash": "V5KXQp/oLHIsoH4eNaM12Ev3EjmBgqKko5P7plDNmIlxKl3uLAwn4INmtdKbILIQ0telpeohYn4z2G1OegqjRw==",
+        "resolved": "6.1.1",
+        "contentHash": "bdlgtr1C/1Bzvj1vxmehSEkX93fovH5yusuCeriTEI9PvtGv5luqEH3GiQY5E12P6FfeaafLBNl9AoH+h76xqQ==",
         "dependencies": {
           "Npgsql": "7.0.4",
-          "Weasel.Core": "6.0.3"
+          "Weasel.Core": "6.1.1"
         }
       },
       "xunit.abstractions": {
@@ -1465,19 +1465,19 @@
       "shoppinglist.infrastructure": {
         "type": "Project",
         "dependencies": {
-          "Marten": "[6.0.5, )",
+          "Marten": "[6.2.0, )",
           "ShoppingList.Core": "[1.0.0, )"
         }
       },
       "Marten": {
         "type": "CentralTransitive",
-        "requested": "[6.0.5, )",
-        "resolved": "6.0.5",
-        "contentHash": "FHyEHsSGrErzHkT8OpTeIju2izRVJ6hRSM+p1bCZZ0oOoOOgijw3VaW2f07U1Rf3xe6WCxjakRGbGkoVqnXfFg==",
+        "requested": "[6.2.0, )",
+        "resolved": "6.2.0",
+        "contentHash": "Tc48Rm/puZ0mwn8pmzl5xcuLh4Yqbka/vi9cNjXNG8lVPYKDZs2TaHOTCp1D7fRwlPLCrrIo6LqjhTn44lcvCQ==",
         "dependencies": {
-          "JasperFx.CodeGeneration": "3.0.0",
-          "JasperFx.Core": "1.4.0",
-          "JasperFx.RuntimeCompiler": "3.0.0",
+          "JasperFx.CodeGeneration": "3.0.2",
+          "JasperFx.Core": "1.4.2",
+          "JasperFx.RuntimeCompiler": "3.0.2",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0",
           "Microsoft.Extensions.Hosting.Abstractions": "7.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "7.0.1",
@@ -1486,7 +1486,7 @@
           "Remotion.Linq": "2.2.0",
           "System.Text.Json": "7.0.3",
           "System.Threading.Tasks.Dataflow": "7.0.0",
-          "Weasel.Postgresql": "6.0.3"
+          "Weasel.Postgresql": "6.1.1"
         }
       },
       "Mediator.Abstractions": {
@@ -1502,14 +1502,14 @@
       "Testcontainers": {
         "type": "CentralTransitive",
         "requested": "[2.2.0, )",
-        "resolved": "3.4.0",
-        "contentHash": "zAQOLMxrxlfD8zYiLOgbZmXqGSr2h/ng+IRBfmFe/027sEZSaiS4Oo1W5wv+xtDLSlGyRORkkT1TSSudyFJ5hg==",
+        "resolved": "3.5.0",
+        "contentHash": "UYMCZ778ZjjHPZtr5VpemtI8kjkchFJf+taoH4fUwuzBXbWm+0VgAfBTzOIfrKSVBCKqG0gPm5PSOU8eAhFTpg==",
         "dependencies": {
+          "BouncyCastle.Cryptography": "2.2.1",
           "Docker.DotNet": "3.125.15",
           "Docker.DotNet.X509": "3.125.15",
           "Microsoft.Bcl.AsyncInterfaces": "6.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.4",
-          "Portable.BouncyCastle": "1.9.0",
           "SSH.NET": "2020.0.2",
           "SharpZipLib": "1.4.2",
           "System.Text.Json": "6.0.8"
