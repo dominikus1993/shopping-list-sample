@@ -3,7 +3,7 @@
 public abstract class AggregateRoot
 {
     private readonly List<Event> _changes = new();
-    public int Version { get; private set; }
+    public int Version { get; set; }
 
     public IEnumerable<Event> GetUncommittedChanges()
     {
