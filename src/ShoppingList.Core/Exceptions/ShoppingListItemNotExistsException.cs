@@ -2,17 +2,13 @@ using ShoppingList.Core.Model;
 
 namespace ShoppingList.Core.Exceptions;
 
-public sealed class ShoppingListItemNotExistsException : Exception
+public sealed class ShoppingListItemNotExistsException(ShoppingListId shoppingListId,
+        ShoppingListItemId shoppingListItemId)
+    : Exception("ShoppingList item not exists")
 {
-    public ShoppingListItemId ShoppingListItemId { get; }
-    public ShoppingListId ShoppingListId { get; }
+    public ShoppingListItemId ShoppingListItemId { get; } = shoppingListItemId;
+    public ShoppingListId ShoppingListId { get; } = shoppingListId;
 
-
-    public ShoppingListItemNotExistsException(ShoppingListId shoppingListId, ShoppingListItemId shoppingListItemId) : base("ShoppingList item not exists")
-    {
-        ShoppingListId = shoppingListId;
-        ShoppingListItemId = shoppingListItemId;
-    }
 
     public override string ToString()
     {

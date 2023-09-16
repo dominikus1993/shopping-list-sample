@@ -2,15 +2,12 @@ using ShoppingList.Core.Model;
 
 namespace ShoppingList.Core.Exceptions;
 
-public sealed class ShoppingListItemExistsException : Exception
+public sealed class ShoppingListItemExistsException(ShoppingListId shoppingListId,
+        ShoppingListItemId shoppingListItemId)
+    : Exception("ShoppingList item aleready exists")
 {
-    public ShoppingListItemId ShoppingListItemId { get;  }
-    public ShoppingListId ShoppingListId { get;  }
-    public ShoppingListItemExistsException(ShoppingListId shoppingListId, ShoppingListItemId shoppingListItemId) : base("ShoppingList item aleready exists")
-    {
-        ShoppingListItemId = shoppingListItemId;
-        ShoppingListId = shoppingListId;
-    }
+    public ShoppingListItemId ShoppingListItemId { get;  } = shoppingListItemId;
+    public ShoppingListId ShoppingListId { get;  } = shoppingListId;
 
     public override string ToString()
     {

@@ -1,13 +1,8 @@
 namespace ShoppingList.Core.Exceptions;
 
-public sealed class ShoppingListNotExistsException : Exception
+public sealed class ShoppingListNotExistsException(ShoppingListId shoppingListId) : Exception("ShoppingList not exists")
 {
-    public ShoppingListId ShoppingListId { get; }
-    
-    public ShoppingListNotExistsException(ShoppingListId shoppingListId) : base("ShoppingList not exists")
-    {
-        ShoppingListId = shoppingListId;
-    }
+    public ShoppingListId ShoppingListId { get; } = shoppingListId;
 
     public override string ToString()
     {
