@@ -30,7 +30,6 @@ public static class DocumentSessionExtensions
     public static Task<T?> Get<T>(
         this IDocumentSession documentSession,
         Guid id,
-        int version,
         CancellationToken ct
     ) where T : class =>
         documentSession.Events.AggregateStreamAsync<T>(id, token: ct);

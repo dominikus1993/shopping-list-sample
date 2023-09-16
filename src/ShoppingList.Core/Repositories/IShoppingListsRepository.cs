@@ -16,7 +16,7 @@ public partial class SaveResult : OneOfBase<Guid, Exception>
 
 public interface IShoppingListsRepository
 {
-    Task<CustomerShoppingList?> Load(Guid id, int version, CancellationToken cancellationToken = default);
+    Task<CustomerShoppingList?> Load(Guid id, CancellationToken cancellationToken = default);
     Task Update(CustomerShoppingList customerShoppingList, CancellationToken cancellationToken = default);
     Task<SaveResult> Save(CustomerShoppingList customerShoppingList, CancellationToken cancellationToken = default);
 }

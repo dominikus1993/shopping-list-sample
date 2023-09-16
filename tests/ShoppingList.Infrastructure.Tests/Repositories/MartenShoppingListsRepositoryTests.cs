@@ -5,7 +5,6 @@ using Marten.Exceptions;
 using ShoppingList.Core.Model;
 using ShoppingList.Core.Repositories;
 using ShoppingList.Infrastructure.Exceptions;
-using ShoppingList.Infrastructure.Repositories;
 using ShoppingList.Infrastructure.Tests.Fixtures;
 
 namespace ShoppingList.Infrastructure.Tests.Repositories;
@@ -31,7 +30,7 @@ public sealed class MartenShoppingListsRepositoryTests : IClassFixture<MartenFix
         Assert.True(result.IsSuccess);
 
         Assert.Equal(1, sl.Version);
-        var subject = await _shoppingListsRepository.Load(sl.Id, sl.Version);
+        var subject = await _shoppingListsRepository.Load(sl.Id);
 
         Assert.NotNull(subject);
     }
@@ -46,7 +45,7 @@ public sealed class MartenShoppingListsRepositoryTests : IClassFixture<MartenFix
         Assert.True(result.IsSuccess);
         
         Assert.Equal(2, sl.Version);
-        var subject = await _shoppingListsRepository.Load(sl.Id, sl.Version);
+        var subject = await _shoppingListsRepository.Load(sl.Id);
 
         Assert.NotNull(subject);
         Assert.Single(subject.Items);
@@ -83,7 +82,7 @@ public sealed class MartenShoppingListsRepositoryTests : IClassFixture<MartenFix
         sl.AddItem(item2);
         await _shoppingListsRepository.Update(sl);
 
-        var subject = await _shoppingListsRepository.Load(sl.Id, 3);
+        var subject = await _shoppingListsRepository.Load(sl.Id);
         
         Assert.NotNull(subject);
         Assert.NotEmpty(subject.Items);

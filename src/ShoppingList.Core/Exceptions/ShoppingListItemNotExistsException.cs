@@ -4,32 +4,18 @@ namespace ShoppingList.Core.Exceptions;
 
 public sealed class ShoppingListItemNotExistsException : Exception
 {
-    public ShoppingListItemId ShoppingListItemId { get; set; }
+    public ShoppingListItemId ShoppingListItemId { get; }
+    public ShoppingListId ShoppingListId { get; }
 
 
-    public ShoppingListItemNotExistsException(ShoppingListItemId shoppingListItemId) : base("ShoppingList item not exists")
+    public ShoppingListItemNotExistsException(ShoppingListId shoppingListId, ShoppingListItemId shoppingListItemId) : base("ShoppingList item not exists")
     {
+        ShoppingListId = shoppingListId;
         ShoppingListItemId = shoppingListItemId;
     }
 
     public override string ToString()
     {
-        return $"{base.ToString()}, {nameof(ShoppingListItemId)}: {ShoppingListItemId}";
-    }
-}
-
-public sealed class ShoppingListNotExistsException : Exception
-{
-    public Guid ShoppingListId { get; set; }
-
-
-    public ShoppingListItemNotExistsException(Guid shoppingListId) : base("ShoppingList item not exists")
-    {
-        ShoppingListItemId = shoppingListItemId;
-    }
-
-    public override string ToString()
-    {
-        return $"{base.ToString()}, {nameof(ShoppingListItemId)}: {ShoppingListItemId}";
+        return $"{base.ToString()}, {nameof(ShoppingListItemId)}: {ShoppingListItemId}, {nameof(ShoppingListId)}: {ShoppingListId}";
     }
 }

@@ -1,6 +1,7 @@
 using Mediator;
 
 using ShoppingList.Core.Commands;
+using ShoppingList.Core.Exceptions;
 using ShoppingList.Core.Repositories;
 
 namespace ShoppingList.Core.CommandHandler;
@@ -14,8 +15,18 @@ public sealed class AddItemToShoppingListHandler : IRequestHandler<AddItemToShop
         _shoppingListsRepository = shoppingListsRepository;
     }
 
-    public ValueTask<Unit> Handle(AddItemToShoppingList request, CancellationToken cancellationToken)
+    public async ValueTask<Unit> Handle(AddItemToShoppingList request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var shoppingList = await _shoppingListsRepository.Load(request.Id, cancellationToken);
+        if (shoppingList is null)
+        {
+            throw new ShoppingListNotExistsException(request.Id);
+        }
+        
+        shoppingList.AddItem(request.Item);
+
+        await _shoppingListsRepository.Update(shoppingList, cancellationToken);
+
+        return Unit.Value;
     }
 }

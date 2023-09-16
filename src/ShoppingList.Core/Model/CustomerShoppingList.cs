@@ -15,7 +15,7 @@ public sealed record ShoppingListItem(ShoppingListItemId Id, ShoppingListItemNam
 public sealed class CustomerShoppingList : AggregateRoot
 {
     private Dictionary<ShoppingListItemId, ShoppingListItem> _items;
-    public CustomerShoppingList(Guid Id, UserId UserId, ShoppingListName ShoppingListName)
+    public CustomerShoppingList(ShoppingListId Id, UserId UserId, ShoppingListName ShoppingListName)
     {
         ApplyChange(new ShoppingListCreated(Id, UserId, ShoppingListName));
     }
@@ -29,7 +29,7 @@ public sealed class CustomerShoppingList : AggregateRoot
     {
         if (_items.ContainsKey(item.Id))
         {
-            throw new ShoppingListItemExistsException(item.Id);
+            throw new ShoppingListItemExistsException(Id, item.Id);
         }
         
         ApplyChange(new ShoppingListItemAdded(item));
@@ -39,7 +39,7 @@ public sealed class CustomerShoppingList : AggregateRoot
     {
         if (!_items.TryGetValue(itemId, out var item))
         {
-            throw new ShoppingListItemNotExistsException(itemId);
+            throw new ShoppingListItemNotExistsException(Id, itemId);
         }
         
         ApplyChange(new ShoppingListItemRemoved(item));

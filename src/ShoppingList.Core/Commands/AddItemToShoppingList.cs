@@ -4,4 +4,4 @@ using ShoppingList.Core.Model;
 
 namespace ShoppingList.Core.Commands;
 
-public sealed record AddItemToShoppingList(Guid Id, ShoppingListItem Item) : IRequest<Unit>;
+public sealed record AddItemToShoppingList(ShoppingListId Id, ShoppingListItem Item) : IRequest<Unit>;

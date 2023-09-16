@@ -17,10 +17,10 @@ public sealed class MartenShoppingListsRepository : IShoppingListsRepository
         _store = store;
     }
 
-    public async Task<CustomerShoppingList?> Load(Guid id, int version, CancellationToken cancellationToken = default)
+    public async Task<CustomerShoppingList?> Load(Guid id, CancellationToken cancellationToken = default)
     {
         await using var session = _store.LightweightSession();
-        return await session.Get<CustomerShoppingList>(id, version, cancellationToken);
+        return await session.Get<CustomerShoppingList>(id, cancellationToken);
     }
 
     public async Task Update(CustomerShoppingList customerShoppingList, CancellationToken cancellationToken = default)
