@@ -17,3 +17,19 @@ public sealed class ShoppingListItemNotExistsException : Exception
         return $"{base.ToString()}, {nameof(ShoppingListItemId)}: {ShoppingListItemId}";
     }
 }
+
+public sealed class ShoppingListNotExistsException : Exception
+{
+    public Guid ShoppingListId { get; set; }
+
+
+    public ShoppingListItemNotExistsException(Guid shoppingListId) : base("ShoppingList item not exists")
+    {
+        ShoppingListItemId = shoppingListItemId;
+    }
+
+    public override string ToString()
+    {
+        return $"{base.ToString()}, {nameof(ShoppingListItemId)}: {ShoppingListItemId}";
+    }
+}
