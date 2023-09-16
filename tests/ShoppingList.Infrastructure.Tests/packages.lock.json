@@ -1493,7 +1493,7 @@
       },
       "Mediator.Abstractions": {
         "type": "CentralTransitive",
-        "requested": "[2.1.5, )",
+        "requested": "[2.1.6, )",
         "resolved": "2.1.6",
         "contentHash": "ThJT5ex+NG2O1H0A2rs0qIxOPjRpynqo/ipfcLD4HBYqnCJDwYJZYbnFQHyou+kCvN19Aq/e4Yp8nM/hLOvFkQ==",
         "dependencies": {

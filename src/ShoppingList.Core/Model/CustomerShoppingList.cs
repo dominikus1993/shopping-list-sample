@@ -14,7 +14,7 @@ public sealed record ShoppingListItem(ShoppingListItemId Id, ShoppingListItemNam
 
 public sealed class CustomerShoppingList : AggregateRoot
 {
-    private List<ShoppingListItem> _items;
+    private Dictionary<ShoppingListItemId, ShoppingListItem> _items;
     public CustomerShoppingList(Guid Id, UserId UserId, ShoppingListName ShoppingListName)
     {
         ApplyChange(new ShoppingListCreated(Id, UserId, ShoppingListName));
@@ -27,7 +27,7 @@ public sealed class CustomerShoppingList : AggregateRoot
 
     public void AddItem(ShoppingListItem item)
     {
-        if (_items.Contains(item))
+        if (_items.ContainsKey(item.Id))
         {
             throw new ShoppingListItemExistsException(item.Id);
         }
@@ -37,20 +37,19 @@ public sealed class CustomerShoppingList : AggregateRoot
     
     public void RemoveItem(ShoppingListItemId itemId)
     {
-        var element = _items.Find(it => it.Id == itemId);
-        if (element is null)
+        if (!_items.TryGetValue(itemId, out var item))
         {
             throw new ShoppingListItemNotExistsException(itemId);
         }
         
-        ApplyChange(new ShoppingListItemRemoved(element));
+        ApplyChange(new ShoppingListItemRemoved(item));
     }
     
     public Guid Id { get; private set; }
     public UserId UserId { get; private set; }
     public ShoppingListName ShoppingListName { get; private set; }
 
-    public IReadOnlyCollection<ShoppingListItem> Items => _items.AsReadOnly();
+    public IReadOnlyCollection<ShoppingListItem> Items => _items.Values;
     
 
     protected override void Apply(Event @event)
@@ -61,13 +60,13 @@ public sealed class CustomerShoppingList : AggregateRoot
                 Id = created.ShoppingListIdId;
                 UserId = created.UserId;
                 ShoppingListName = created.ShoppingListName;
-                _items = new List<ShoppingListItem>();
+                _items = new Dictionary<ShoppingListItemId, ShoppingListItem>();
                 break;
-            case ShoppingListItemAdded added: 
-                _items.Add(added.Item);
+            case ShoppingListItemAdded added:
+                _items.Add(added.Item.Id, added.Item);
                 break;
             case ShoppingListItemRemoved removed:
-                _items.Remove(removed.Item);
+                _items.Remove(removed.Item.Id);
                 break;
         }
     }
