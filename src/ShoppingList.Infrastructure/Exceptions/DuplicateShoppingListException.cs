@@ -1,13 +1,8 @@
 namespace ShoppingList.Infrastructure.Exceptions;
 
-public sealed class DuplicateShoppingListException : Exception
+public sealed class DuplicateShoppingListException(Guid shoppingListId, Exception? innerException) : Exception("cannot insert duplicate shopping list", innerException)
 {
-    public DuplicateShoppingListException(Guid shoppingListId, Exception? innerException) : base("cannot insert duplicate shopping list", innerException)
-    {
-        ShoppingListId = shoppingListId;
-    }
-
-    public Guid ShoppingListId { get; }
+    public Guid ShoppingListId { get; } = shoppingListId;
 
     public override string ToString()
     {
