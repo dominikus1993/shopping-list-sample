@@ -54,6 +54,5 @@ public class AddItemToShoppingListHandlerTests : IClassFixture<MartenFixture>
         Assert.NotNull(shoppingListItemExistsException);
         Assert.Equal(createNewShoppingListCmd.Id, shoppingListItemExistsException.ShoppingListId);
         Assert.Equal(addItemToShoppingListCmd.Item.Id, shoppingListItemExistsException.ShoppingListItemId);
-        
     }
 }

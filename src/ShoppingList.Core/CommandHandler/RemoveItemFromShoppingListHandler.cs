@@ -6,9 +6,9 @@ using ShoppingList.Core.Repositories;
 
 namespace ShoppingList.Core.CommandHandler;
 
-public sealed class AddItemToShoppingListHandler(IShoppingListsRepository shoppingListsRepository) : IRequestHandler<AddItemToShoppingList>
+public class RemoveItemFromShoppingListHandler(IShoppingListsRepository shoppingListsRepository) : IRequestHandler<RemoveItemFromShoppingList>
 {
-    public async ValueTask<Unit> Handle(AddItemToShoppingList request, CancellationToken cancellationToken)
+    public async ValueTask<Unit> Handle(RemoveItemFromShoppingList request, CancellationToken cancellationToken)
     {
         var shoppingList = await shoppingListsRepository.Load(request.Id, cancellationToken);
         if (shoppingList is null)
@@ -16,7 +16,7 @@ public sealed class AddItemToShoppingListHandler(IShoppingListsRepository shoppi
             throw new ShoppingListNotExistsException(request.Id);
         }
         
-        shoppingList.AddItem(request.Item);
+        shoppingList.RemoveItem(request.ItemId);
 
         await shoppingListsRepository.Update(shoppingList, cancellationToken);
 
