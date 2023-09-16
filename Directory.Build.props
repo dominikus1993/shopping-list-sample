@@ -10,5 +10,6 @@
         <AnalysisLevel>latest</AnalysisLevel>
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <LangVersion>Preview</LangVersion>
     </PropertyGroup>
 </Project>

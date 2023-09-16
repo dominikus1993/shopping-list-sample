@@ -8,24 +8,17 @@ using ShoppingList.Infrastructure.Extensions;
 
 namespace ShoppingList.Infrastructure.Repositories;
 
-public sealed class MartenShoppingListsRepository : IShoppingListsRepository
+public sealed class MartenShoppingListsRepository(IDocumentStore store) : IShoppingListsRepository
 {
-    private readonly IDocumentStore _store;
-
-    public MartenShoppingListsRepository(IDocumentStore store)
-    {
-        _store = store;
-    }
-
     public async Task<CustomerShoppingList?> Load(Guid id, CancellationToken cancellationToken = default)
     {
-        await using var session = _store.LightweightSession();
+        await using var session = store.LightweightSession();
         return await session.Get<CustomerShoppingList>(id, cancellationToken);
     }
 
     public async Task Update(CustomerShoppingList customerShoppingList, CancellationToken cancellationToken = default)
     {
-        await using var session = _store.LightweightSession();
+        await using var session = store.LightweightSession();
         var id = customerShoppingList.Id;
         await session.Update(id, customerShoppingList.GetUncommittedChanges(), cancellationToken);
     }
@@ -34,7 +27,7 @@ public sealed class MartenShoppingListsRepository : IShoppingListsRepository
     {
         try
         {
-            await using var session = _store.LightweightSession();
+            await using var session = store.LightweightSession();
             var id = customerShoppingList.Id;
             await session.Add<CustomerShoppingList>(id, customerShoppingList.GetUncommittedChanges(), cancellationToken);
             return id;
