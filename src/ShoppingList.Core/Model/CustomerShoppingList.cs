@@ -4,35 +4,13 @@ using ShoppingList.Core.Exceptions;
 namespace ShoppingList.Core.Model;
 
 public sealed record ShoppingListItemName(string Value);
-public sealed record ShoppingListItemId(Guid Value);
+public readonly record struct ShoppingListItemId(Guid Value);
 
 public sealed record UserId(Guid Value);
 
 public sealed record ShoppingListName(string Value);
 
-public sealed record ShoppingListItem(ShoppingListItemId Id, ShoppingListItemName Name)
-{
-    public bool Equals(ShoppingListItem? other)
-    {
-        if (ReferenceEquals(null, other))
-        {
-            return false;
-        }
-
-        if (ReferenceEquals(this, other))
-        {
-            return true;
-        }
-
-        return Id.Equals(other.Id);
-    }
-
-    public override int GetHashCode()
-    {
-        return Id.GetHashCode();
-    }
-}
-
+public sealed record ShoppingListItem(ShoppingListItemId Id, ShoppingListItemName Name) : Entity<ShoppingListItemId>(Id);
 
 public sealed class CustomerShoppingList : AggregateRoot
 {

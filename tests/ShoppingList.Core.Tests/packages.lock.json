@@ -1496,7 +1496,7 @@
       "shoppinglist.core": {
         "type": "Project",
         "dependencies": {
-          "Mediator.Abstractions": "[2.1.5, )",
+          "Mediator.Abstractions": "[2.1.6, )",
           "OneOf": "[3.0.263, )",
           "OneOf.SourceGenerator": "[3.0.263, )"
         }
@@ -1531,8 +1531,8 @@
       "Mediator.Abstractions": {
         "type": "CentralTransitive",
         "requested": "[2.1.5, )",
-        "resolved": "2.1.5",
-        "contentHash": "2fHk7/lgmqeGZKwi2260u1+76lEL9AGdoL71Z2bkPMs+ldSZLExNJQ82nKUwcQ3rOWUceBeP6szYHQMdb1loVw==",
+        "resolved": "2.1.6",
+        "contentHash": "ThJT5ex+NG2O1H0A2rs0qIxOPjRpynqo/ipfcLD4HBYqnCJDwYJZYbnFQHyou+kCvN19Aq/e4Yp8nM/hLOvFkQ==",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
           "System.Threading.Tasks.Extensions": "4.5.4"

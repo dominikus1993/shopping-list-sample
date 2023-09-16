@@ -4,9 +4,9 @@
     "net7.0": {
       "Mediator.Abstractions": {
         "type": "Direct",
-        "requested": "[2.1.5, )",
-        "resolved": "2.1.5",
-        "contentHash": "2fHk7/lgmqeGZKwi2260u1+76lEL9AGdoL71Z2bkPMs+ldSZLExNJQ82nKUwcQ3rOWUceBeP6szYHQMdb1loVw==",
+        "requested": "[2.1.6, )",
+        "resolved": "2.1.6",
+        "contentHash": "ThJT5ex+NG2O1H0A2rs0qIxOPjRpynqo/ipfcLD4HBYqnCJDwYJZYbnFQHyou+kCvN19Aq/e4Yp8nM/hLOvFkQ==",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
           "System.Threading.Tasks.Extensions": "4.5.4"
@@ -14,9 +14,9 @@
       },
       "Mediator.SourceGenerator": {
         "type": "Direct",
-        "requested": "[2.1.5, )",
-        "resolved": "2.1.5",
-        "contentHash": "Xh1A08vdMZ7ijym9X1wiQKkGBWN02VpfV58a59rBS9UGeQwLzMvxOhPr2gFBHxTGXHKgKOVrxtVULfALSLKJwQ==",
+        "requested": "[2.1.6, )",
+        "resolved": "2.1.6",
+        "contentHash": "zzL1eQPdWrhsp96j3x8JiAUKlacCt4MexAsDMY/qtgWlC5ghQlGtXPjEda5HkhT5hA+m3zn96gq82ht3C0+kqQ==",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "6.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0"

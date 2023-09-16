@@ -4,6 +4,7 @@ using Marten.Exceptions;
 
 using ShoppingList.Core.Model;
 using ShoppingList.Core.Repositories;
+using ShoppingList.Infrastructure.Exceptions;
 using ShoppingList.Infrastructure.Repositories;
 using ShoppingList.Infrastructure.Tests.Fixtures;
 
@@ -62,7 +63,11 @@ public sealed class MartenShoppingListsRepositoryTests : IClassFixture<MartenFix
         sl.MarkChangesAsCommitted();
 
         sl.AddItem(item2);
-        await Assert.ThrowsAsync<ExistingStreamIdCollisionException>(async () => await _shoppingListsRepository.Save(sl));
+        var subject = await _shoppingListsRepository.Save(sl);
+        
+        Assert.False(subject.IsSuccess);
+        Assert.IsType<DuplicateShoppingListException>(subject.Error);
+        Assert.IsType<ExistingStreamIdCollisionException>(subject.Error.InnerException);
     }
     
     [Theory]

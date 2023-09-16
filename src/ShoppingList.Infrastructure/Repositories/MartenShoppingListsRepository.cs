@@ -43,6 +43,5 @@ public sealed class MartenShoppingListsRepository : IShoppingListsRepository
         {
             return new DuplicateShoppingListException(customerShoppingList.Id, e);
         }
-        
     }
 }
