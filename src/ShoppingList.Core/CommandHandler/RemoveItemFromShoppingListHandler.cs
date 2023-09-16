@@ -4,6 +4,8 @@ using ShoppingList.Core.Commands;
 using ShoppingList.Core.Exceptions;
 using ShoppingList.Core.Repositories;
 
+using Unit = Mediator.Unit;
+
 namespace ShoppingList.Core.CommandHandler;
 
 public class RemoveItemFromShoppingListHandler(IShoppingListsRepository shoppingListsRepository) : IRequestHandler<RemoveItemFromShoppingList>

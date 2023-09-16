@@ -16,11 +16,12 @@ public sealed class MartenShoppingListsRepository(IDocumentStore store) : IShopp
         return await session.Get<CustomerShoppingList>(id, cancellationToken);
     }
 
-    public async Task Update(CustomerShoppingList customerShoppingList, CancellationToken cancellationToken = default)
+    public async Task<UpdateResult> Update(CustomerShoppingList customerShoppingList, CancellationToken cancellationToken = default)
     {
         await using var session = store.LightweightSession();
         var id = customerShoppingList.Id;
         await session.Update(id, customerShoppingList.GetUncommittedChanges(), cancellationToken);
+        return UpdateResult.Ok;
     }
 
     public async Task<SaveResult> Save(CustomerShoppingList customerShoppingList, CancellationToken cancellationToken = default)
