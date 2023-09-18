@@ -54,6 +54,15 @@ public class ShoppingListTests
     
     [Theory]
     [AutoData]
+    public void TestAddItemWhenCmdIsNull(Guid id, UserId userId, ShoppingListName name)
+    {
+        var subject = new Core.Model.CustomerShoppingList(id, userId, name);
+        
+        Assert.Throws<ArgumentNullException>(() => subject.AddItem(null!));
+    }
+    
+    [Theory]
+    [AutoData]
     public void TestRemoveItemWhenShoppingListContainsItem(Guid id, UserId userId, ShoppingListName name, ShoppingListItem item)
     {
         var subject = new Core.Model.CustomerShoppingList(id, userId, name);
@@ -136,6 +145,40 @@ public class ShoppingListTests
 
         var ex = Assert.Throws<ShoppingListIsAlereadyUnactiveException>(() => sl.MarkAsUnActive());
         Assert.Equal(sl.Id, ex.ShoppingListId);
+    }
+    
+    [Theory]
+    [AutoData]
+    public void TestMarkShoppingListAsActive(Guid id, UserId userId, ShoppingListName name)
+    {
+        var sl = new CustomerShoppingList(id, userId, name);
+        sl.MarkAsActive();
+        
+        Assert.Equal(CustomerShoppingListState.Active, sl.State);
+    }
+    
+    [Theory]
+    [AutoData]
+    public void TestMarkShoppingListAsActiveWhenIsActive(Guid id, UserId userId, ShoppingListName name)
+    {
+        var sl = new Core.Model.CustomerShoppingList(id, userId, name);
+        Assert.Equal(CustomerShoppingListState.Active, sl.State);
 
+        var ex = Assert.Throws<ShoppingListIsAlereadyActiveException>(() => sl.MarkAsActive());
+        Assert.Equal(sl.Id, ex.ShoppingListId);
+    }
+    
+    [Theory]
+    [AutoData]
+    public void TestMarkShoppingListAsNoActiveWhenIsActiveAndMarkAsActive(Guid id, UserId userId, ShoppingListName name)
+    {
+        var sl = new CustomerShoppingList(id, userId, name);
+        sl.MarkAsUnActive();
+        
+        Assert.Equal(CustomerShoppingListState.NoActive, sl.State);
+        
+        sl.MarkAsActive();
+        
+        Assert.Equal(CustomerShoppingListState.Active, sl.State);
     }
 }

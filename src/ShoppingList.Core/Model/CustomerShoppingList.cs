@@ -62,6 +62,15 @@ public sealed class CustomerShoppingList : AggregateRoot
         ApplyChange(new ShoppingListMarkedAsNoActive(Id));
     }
     
+    public void MarkAsActive()
+    {
+        if (State is CustomerShoppingListState.Active)
+        {
+            throw new ShoppingListIsAlereadyActiveException(Id);
+        }
+        ApplyChange(new ShoppingListMarkedAsActive(Id));
+    }
+    
     public Guid Id { get; set; }
     public UserId UserId { get; set; }
     public ShoppingListName ShoppingListName { get; set; }
@@ -89,6 +98,9 @@ public sealed class CustomerShoppingList : AggregateRoot
             case ShoppingListMarkedAsNoActive:
                 State = CustomerShoppingListState.NoActive;
                 break;
+            case ShoppingListMarkedAsActive:
+                State = CustomerShoppingListState.Active;
+                break;
         }
     }
 }
@@ -101,3 +113,5 @@ public sealed record ShoppingListItemAdded(ShoppingListItem Item) : Event;
 public sealed record ShoppingListItemRemoved(ShoppingListItem Item) : Event;
 
 public sealed record ShoppingListMarkedAsNoActive(ShoppingListId ShoppingListId) : Event;
+
+public sealed record ShoppingListMarkedAsActive(ShoppingListId ShoppingListId) : Event;
