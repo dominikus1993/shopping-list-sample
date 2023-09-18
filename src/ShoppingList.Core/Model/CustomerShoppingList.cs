@@ -6,7 +6,7 @@ namespace ShoppingList.Core.Model;
 public sealed record ShoppingListItemName(string Value);
 public readonly record struct ShoppingListItemId(Guid Value);
 
-public record struct UserId(Guid Value);
+public readonly record struct UserId(Guid Value);
 
 public sealed record ShoppingListName(string Value);
 
