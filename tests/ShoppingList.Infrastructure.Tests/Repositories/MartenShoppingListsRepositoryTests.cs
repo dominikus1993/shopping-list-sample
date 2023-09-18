@@ -33,6 +33,11 @@ public sealed class MartenShoppingListsRepositoryTests : IClassFixture<MartenFix
         var subject = await _shoppingListsRepository.Load(sl.Id);
 
         Assert.NotNull(subject);
+        Assert.Empty(subject.Items);
+        Assert.Equal(shoppingListId, subject.Id);
+        Assert.Equal(userId, subject.UserId);
+        Assert.Equal(CustomerShoppingListState.Active, subject.State);
+        Assert.Equal(shoppingListName, subject.ShoppingListName);
     }
     
     [Theory]

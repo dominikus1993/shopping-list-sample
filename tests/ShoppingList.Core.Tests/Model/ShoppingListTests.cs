@@ -114,4 +114,28 @@ public class ShoppingListTests
         
         Assert.Equivalent(sl, subject);
     }
+    
+    [Theory]
+    [AutoData]
+    public void TestMarkShoppingListAsNoActiveWhenIsActive(Guid id, UserId userId, ShoppingListName name)
+    {
+        var sl = new CustomerShoppingList(id, userId, name);
+        sl.MarkAsUnActive();
+        
+        Assert.Equal(CustomerShoppingListState.NoActive, sl.State);
+    }
+    
+    [Theory]
+    [AutoData]
+    public void TestMarkShoppingListAsNoActiveWhenIsNoActive(Guid id, UserId userId, ShoppingListName name)
+    {
+        var sl = new Core.Model.CustomerShoppingList(id, userId, name);
+        sl.MarkAsUnActive();
+        
+        Assert.Equal(CustomerShoppingListState.NoActive, sl.State);
+
+        var ex = Assert.Throws<ShoppingListIsAlereadyUnactiveException>(() => sl.MarkAsUnActive());
+        Assert.Equal(sl.Id, ex.ShoppingListId);
+
+    }
 }
