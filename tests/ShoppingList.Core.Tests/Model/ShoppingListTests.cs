@@ -63,6 +63,25 @@ public class ShoppingListTests
     
     [Theory]
     [AutoData]
+    public void TestAddItemWhenWhenShoppingListIsUnActive(Guid id, UserId userId, ShoppingListName name, ShoppingListItem item)
+    {
+        var subject = new Core.Model.CustomerShoppingList(id, userId, name);
+        subject.MarkAsUnActive();
+        Assert.Throws<ShoppingListIsUnActiveException>(() => subject.AddItem(item));
+    }
+    
+    [Theory]
+    [AutoData]
+    public void TestRemoveItemWhenWhenShoppingListIsUnActive(Guid id, UserId userId, ShoppingListName name, ShoppingListItem item)
+    {
+        var subject = new Core.Model.CustomerShoppingList(id, userId, name);
+        subject.AddItem(item);
+        subject.MarkAsUnActive();
+        Assert.Throws<ShoppingListIsUnActiveException>(() => subject.RemoveItem(item.Id));
+    }
+    
+    [Theory]
+    [AutoData]
     public void TestRemoveItemWhenShoppingListContainsItem(Guid id, UserId userId, ShoppingListName name, ShoppingListItem item)
     {
         var subject = new Core.Model.CustomerShoppingList(id, userId, name);

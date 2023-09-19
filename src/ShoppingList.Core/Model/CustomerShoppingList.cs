@@ -34,6 +34,10 @@ public sealed class CustomerShoppingList : AggregateRoot
 
     public void AddItem(ShoppingListItem item)
     {
+        if (State == CustomerShoppingListState.NoActive)
+        {
+            throw new ShoppingListIsUnActiveException(Id);
+        }
         ArgumentNullException.ThrowIfNull(item);
         if (_items.ContainsKey(item.Id))
         {
@@ -45,6 +49,10 @@ public sealed class CustomerShoppingList : AggregateRoot
     
     public void RemoveItem(ShoppingListItemId itemId)
     {
+        if (State == CustomerShoppingListState.NoActive)
+        {
+            throw new ShoppingListIsUnActiveException(Id);
+        }
         if (!_items.TryGetValue(itemId, out var item))
         {
             throw new ShoppingListItemNotExistsException(Id, itemId);
